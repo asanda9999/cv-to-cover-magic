@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Wand2, Copy, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { generateCoverLetter as generateCoverLetterAPI, testGeminiConnection } from '@/services/geminiService';
 
 interface CoverLetterGeneratorProps {
   cvContent: string;
@@ -18,7 +19,7 @@ export const CoverLetterGenerator: React.FC<CoverLetterGeneratorProps> = ({
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
 
-  const generateCoverLetter = async () => {
+  const handleGenerateCoverLetter = async () => {
     if (!cvContent.trim() || !jobDescription.trim()) {
       toast({
         title: "Missing information",
@@ -31,49 +32,35 @@ export const CoverLetterGenerator: React.FC<CoverLetterGeneratorProps> = ({
     setIsGenerating(true);
     
     try {
-      // In a real app, you would call your backend API here
-      // For this demo, we'll simulate the API call
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      const mockCoverLetter = `Dear Hiring Manager,
-
-I am writing to express my strong interest in the position described in your job posting. After reviewing the requirements and responsibilities, I am confident that my background and skills make me an ideal candidate for this role.
-
-Based on my CV and the job description provided, I bring relevant experience that directly aligns with your needs. My professional background demonstrates the technical skills and industry knowledge required for this position.
-
-Key qualifications that make me a strong fit:
-• Proven experience in the field with demonstrable results
-• Strong technical skills that match your requirements
-• Excellent communication and collaboration abilities
-• Passion for contributing to team success and organizational growth
-
-I am particularly excited about this opportunity because it represents a perfect match between my career aspirations and your company's needs. The role aligns perfectly with my professional goals and would allow me to contribute meaningfully to your team.
-
-I would welcome the opportunity to discuss how my background and enthusiasm can contribute to your organization's continued success. Thank you for considering my application, and I look forward to hearing from you soon.
-
-Best regards,
-[Your Name]
-
----
-Note: This is a demo cover letter. In a production app, this would be generated using AI based on your actual CV content and the specific job description provided.`;
-      
-      setCoverLetter(mockCoverLetter);
-      
-      toast({
-        title: "Cover letter generated!",
-        description: "Your personalized cover letter is ready.",
+      const result = await generateCoverLetterAPI({
+        cvContent,
+        jobDescription,
+        applicantName: '[Your Name]'
       });
+
+      if (result.success && result.coverLetter) {
+        setCoverLetter(result.coverLetter);
+        toast({
+          title: "Cover letter generated!",
+          description: "Your personalized cover letter is ready.",
+        });
+      } else {
+        throw new Error(result.error || 'Failed to generate cover letter');
+      }
     } catch (error) {
       console.error('Error generating cover letter:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       toast({
         title: "Generation failed",
-        description: "Please try again. Make sure both CV and job description are provided.",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
       setIsGenerating(false);
     }
   };
+
+
 
   const copyToClipboard = async () => {
     try {
@@ -103,8 +90,8 @@ Note: This is a demo cover letter. In a production app, this would be generated 
     URL.revokeObjectURL(url);
     
     toast({
-      title: "Download started",
-      description: "Your cover letter is being downloaded.",
+      title: "Lets get you this job !",
+      description: "Your future is being downloaded.",
     });
   };
 
@@ -145,25 +132,28 @@ Note: This is a demo cover letter. In a production app, this would be generated 
             <p className="text-muted-foreground mb-6">
               Upload your CV and add a job description to generate a personalized cover letter
             </p>
-            <Button
-              variant="hero"
-              size="lg"
-              onClick={generateCoverLetter}
-              disabled={!canGenerate || isGenerating}
-              className="animate-pulse-glow"
-            >
-              {isGenerating ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  <Wand2 className="w-4 h-4" />
-                  Generate Cover Letter
-                </>
-              )}
-            </Button>
+            <div className="flex flex-col gap-3 items-center">
+              <Button
+                variant="hero"
+                size="lg"
+                onClick={handleGenerateCoverLetter}
+                disabled={!canGenerate || isGenerating}
+                className="animate-pulse-glow"
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-4 h-4" />
+                    Generate Cover Letter
+                  </>
+                )}
+              </Button>
+            
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
@@ -174,7 +164,7 @@ Note: This is a demo cover letter. In a production app, this would be generated 
               <Button
                 variant="hero"
                 size="sm"
-                onClick={generateCoverLetter}
+                onClick={handleGenerateCoverLetter}
                 disabled={isGenerating}
               >
                 {isGenerating ? (

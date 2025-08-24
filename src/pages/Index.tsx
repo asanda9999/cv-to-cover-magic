@@ -54,8 +54,8 @@ const Index = () => {
         <div className="relative max-w-6xl mx-auto text-center">
           <div className="animate-fade-up">
             <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6">
-              CV to Cover Letter
-              <span className="block text-primary-glow">Magic</span>
+              Vocara
+              <span className="block text-primary-glow">Cover Letters</span>
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto">
               Transform your CV and any job description into a compelling, personalized cover letter using AI
@@ -139,7 +139,7 @@ const Index = () => {
       <footer className="py-8 px-4 bg-muted/50 border-t">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-muted-foreground">
-            Built with ❤️ using React, TypeScript, and AI
+            Hydra Tech - Crafted with creativity 
           </p>
         </div>
       </footer>

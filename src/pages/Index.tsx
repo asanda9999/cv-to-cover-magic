@@ -5,6 +5,7 @@ import { CoverLetterGenerator } from '@/components/CoverLetterGenerator';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Sparkles, FileText, Wand2, CheckCircle, ArrowRight, Upload, Download, Zap } from 'lucide-react';
+import heroImage from '@/assets/hero.jpg';
 
 const Index = () => {
   const [cvContent, setCvContent] = useState('');
@@ -63,14 +64,11 @@ const Index = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/20">
         <div className="max-w-7xl mx-auto container-padding">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-center h-16">
             <div className="flex items-center space-x-2">
               <Sparkles className="w-8 h-8 text-primary" />
-              <span className="text-xl font-semibold text-foreground">CoverCraft</span>
+              <span className="text-xl font-semibold text-foreground">Vocara Letters</span>
             </div>
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
           </div>
         </div>
       </nav>
@@ -78,29 +76,23 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative py-20 px-4 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-hero opacity-90" />
+        <div className="absolute inset-0 bg-black/40" />
         
         <div className="relative max-w-6xl mx-auto text-center">
           <div className="animate-fade-up">
             <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6">
-              CV to Cover Letter
-              <span className="block text-primary-glow">Magic</span>
+              Vocara
+              <span className="block text-primary-glow">Speak the Language of Employers.</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Transform your CV and any job description into a compelling, personalized cover letter using advanced AI technology
+              
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <Button size="xl" className="group">
-                Get Started
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="outline" size="xl">
-                Watch Demo
-              </Button>
+             
             </div>
 
             {/* Features Grid */}
@@ -226,28 +218,13 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-gradient-hero">
-        <div className="max-w-4xl mx-auto container-padding text-center">
-          <div className="animate-fade-in">
-            <h2 className="text-white mb-6">
-              Ready to land your dream job?
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Join thousands of professionals who have successfully landed interviews with our AI-powered cover letters
-            </p>
-            <Button size="xl" variant="secondary">
-              Start Creating Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
-        </div>
-      </section>
+   
 
       {/* Footer */}
       <footer className="py-8 px-4 bg-muted/50 border-t">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-muted-foreground">
-            Built with ❤️ using React, TypeScript, and AI
+            Hydra Tech - Crafted With Creativity
           </p>
         </div>
       </footer>

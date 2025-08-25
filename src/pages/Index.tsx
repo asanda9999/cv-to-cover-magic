@@ -224,7 +224,7 @@ const Index = () => {
       <footer className="py-8 px-4 bg-muted/50 border-t">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-muted-foreground">
-            Hydra Tech - Crafted With Creativity
+            All rights reserved © 2025 Hydra Tech.
           </p>
         </div>
       </footer>
